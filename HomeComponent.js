@@ -1,42 +1,157 @@
-import React from 'react';
-import {Card, CardImg, CardText, CardBody, CardSubtitle} from 'reactstrap';
-import { CardTitle } from 'reactstrap';
-function RenderCard({item}){
-return(
-<Card>
-  <CardImg width="100%" src={item.image} alt={item.name}/>
-  <CardBody>
-    <CardTitle>{item.name}</CardTitle>
-    {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle>: null}
-    <CardText>{item.description}</CardText>
-  </CardBody>
-</Card>
-)
+import React from "react";
+import {
+    Card,
+    CardImg,
+    CardText,
+    CardBody,
+    CardTitle,
+    CardSubtitle
+} from "reactstrap";
+import { Loading } from "./LoadingComponent";
+import { baseUrl } from './shared/baseURL';
+
+
+
+function RenderCard({item, isLoading, errMess }) {
+
+    if (isLoading) {
+
+        return (
+            <Loading />
+        );
+    }
+    else if ( errMess ) {
+        
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+    else{
+
+        return(
+           
+                <Card>
+                    <CardImg width="100%" src={baseUrl + item.image} alt={item.name} />                
+                    <CardBody>
+                        <CardTitle> {item.name} </CardTitle>
+        
+                        {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
+        
+                        <CardText>{item.description}</CardText>
+                    </CardBody>
+        
+                </Card>
+           
+        );
+
+    }
 }
 
 
 
-
-
 function Home(props) {
-  return(
-<div className='container'>
-<div className="col-12">
-                    <h3 className='text-center '>Home</h3>
-                    <hr/>
+    return(
+        <div className="container">
+            <div className="row align-items-start">
+
+                <div className="col-12 col-md m-1">
+                    <RenderCard
+                        item={props.dish}
+                        isLoading={props.dishesLoading}
+                        errMess={props.dishErrMess}
+                    />
                 </div>
- <div className='row align-items-start'>
-   <div className='col-12 col-md-4 m-1'>
-     <RenderCard item={props.dishes}/>
-   </div>
-   <div className='col-12 col-md-4 m-1'>
-     <RenderCard item={props.promotion}/>
-   </div>
-   <div className='col-12 col-md-4 m-1'>
-     <RenderCard item={props.leader}/>
-   </div>
- </div>
-</div>
-  )
-  }
-  export default Home;
+
+                <div className="col-12 col-md m-1">
+                    <RenderCard 
+                        item={props.promotions} 
+                        isLoading={props.promoLoading}
+                        errMess={props.promoErrMess} 
+                    />
+                </div>
+
+                <div className="col-12 col-md m-1">
+                    <RenderCard 
+                        item={props.leader} 
+                        isLoading={props.leaderLoading}
+                        errMess={props.leaderErrMess} 
+
+                    />
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+export default Home;
+
+
+
+
+// import React from 'react';
+// import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
+// import { Loading } from './LoadingComponent';
+// import {baseUrl} from '../component/shared/baseURL'
+// import {FadeTransform} from 'react-animation-component'
+
+// function RenderCard({item, isLoading, errmess}) {
+//     if(isLoading){
+//         return(
+//             <Loading/>
+//         )
+//     }
+//     else if(errmess){
+//         return (
+//             <h4>{errmess}</h4>
+//         )
+//     }
+//     else{
+//     return(
+       
+        
+//         <Card>
+//             <CardImg src={baseUrl +item.image} alt={item.name}  />
+            
+//             <CardBody>
+//                 <CardTitle> {item.name} </CardTitle>
+
+//                 {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
+
+//                 <CardText>{item.description}</CardText>
+//             </CardBody>
+
+//         </Card>
+       
+//     );
+// }
+
+
+
+// function Home(props) {
+//     return(
+//         <div className="container">
+//             <div className="row align-items-start">
+
+//                 <div className="col-12 col-md m-1">
+//                     <RenderCard item={props.dish} 
+//                     isLoading={props.dishesLoading} 
+//                     errmess={props.dishesErrmess}/>
+//                 </div>
+
+//                 <div className="col-12 col-md m-1">
+//                     <RenderCard item={props.promotion}
+//                      isLoading={props.promosLoading} 
+//                      errmess={props.promosErrmess} />
+//                 </div>
+
+//                 <div className="col-12 col-md m-1">
+//                     <RenderCard item={props.leader} />
+//                 </div>
+
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default Home;

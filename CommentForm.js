@@ -27,8 +27,8 @@ isCommentFormOpen : false
     })
   }
   HandleToSubmitCommentForm(values){
-    console.log('current State is:' + JSON.stringify(values))
-alert("rating:" + JSON.stringify(values))
+   
+   
   }
 render(){
   return(
